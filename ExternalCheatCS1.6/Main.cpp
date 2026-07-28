@@ -1,4 +1,4 @@
-#include <Windows.h>
+﻿#include <Windows.h>
 #include <vector>
 #include <thread>
 #include <memory>
@@ -12,12 +12,15 @@
 #include "Settings.h"
 #include <typeinfo>
 
+#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
+
 namespace EF = ExternalCheat::Features;
 namespace EC = ExternalCheat::Core;
 
 int main() {
 	if (!EC::AttachToProcess()) return 0;
 
+	std::vector<std::thread> threads;
 	EC::clientBase = EC::FindModuleAddress(EC::procId, L"client.dll");
 	EC::hwBase = EC::FindModuleAddress(EC::procId, L"hw.dll");
 
@@ -29,20 +32,20 @@ int main() {
 	for (auto& f : feature) {
 		if (f->getBackGround()) {
 			auto rawPtr = f.get();
-			std::thread([rawPtr]() {
-				while (true) {
+			threads.push_back(std::thread([rawPtr]() {
+				while (!Settings::bShouldQuit) {
 					if (rawPtr->getEnabled()) {
 						rawPtr->UpDate();
 					}
 					if (typeid(*rawPtr) != typeid(EF::Bhop)) {
 						Sleep(1);
-					}
+					}else std::this_thread::yield();
 				}
-			}).detach();
+			}));
 		}
 	}
-	
-	std::thread(Menu::MenuThread).detach();
+
+	threads.push_back(std::thread(Menu::MenuThread));
 
 	while (!Settings::bShouldQuit) {
 		ExternalCheat::Update();
@@ -52,6 +55,10 @@ int main() {
 			}
 		}
 		Sleep(1);
+	}
+
+	for (int i = 0; i < threads.size(); i++) {
+		threads[i].join();
 	}
 
 	return 0;
