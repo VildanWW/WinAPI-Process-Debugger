@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "IBaseFeature.h"
 #include "Memory.h"
 #include <d3d9.h>
@@ -6,9 +6,9 @@
 #pragma comment(lib, "d3d9.lib")
 #define M_PI 3.14159265358979323846f
 
-namespace ExternalCheat {
+namespace ProcessDebugger {
 	namespace Features {
-		class Esp : public IBaseFeature {
+		class EntityVisualizer : public IBaseFeature {
 		private:
 			RECT gRect;
 			HWND ovl;
@@ -19,7 +19,7 @@ namespace ExternalCheat {
 			int sW;
 			int sH;
 		public:
-			Esp();
+			EntityVisualizer();
 
 			void UpDate() override;
 			void MenuRender() override;
@@ -27,7 +27,7 @@ namespace ExternalCheat {
 			void DrawLine(float x1, float y1, float x2, float y2, DWORD color);
 			void DrawEspBox(int x, int y, int w, int h, DWORD color);
 
-			~Esp();
+			~EntityVisualizer();
 		};
 	}
 }

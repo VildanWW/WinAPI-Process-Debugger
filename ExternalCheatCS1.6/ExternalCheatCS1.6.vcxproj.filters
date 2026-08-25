@@ -21,13 +21,13 @@
     <ClCompile Include="Memory.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Bhop.cpp">
+    <ClCompile Include="InputAutomation.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Esp.cpp">
+    <ClCompile Include="EntityVisualizer.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Aim.cpp">
+    <ClCompile Include="VectorController.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Menu.cpp">
@@ -51,7 +51,7 @@
     <ClCompile Include="imgui_tables.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="NoRecoil.cpp">
+    <ClCompile Include="StabilizationSystem.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -65,13 +65,13 @@
     <ClInclude Include="Offsets.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Bhop.h">
+    <ClInclude Include="InputAutomation.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Esp.h">
+    <ClInclude Include="EntityVisualizer.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Aim.h">
+    <ClInclude Include="VectorController.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Menu.h">
@@ -80,7 +80,7 @@
     <ClInclude Include="Settings.h">
       <Filter>Файлы ресурсов</Filter>
     </ClInclude>
-    <ClInclude Include="NoRecoil.h">
+    <ClInclude Include="StabilizationSystem.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

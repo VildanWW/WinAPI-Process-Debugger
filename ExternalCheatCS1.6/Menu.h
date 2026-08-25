@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <Windows.h>
 #include <d3d9.h>
 #include "imgui.h"
@@ -12,7 +12,7 @@
 #include "IBaseFeature.h"
 #pragma comment(lib, "dwmapi.lib")
 
-namespace EF = ExternalCheat::Features;
+namespace EF = ProcessDebugger::Features;
 
 inline std::vector<std::unique_ptr<EF::IBaseFeature>> feature;
 

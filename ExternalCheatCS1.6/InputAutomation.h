@@ -1,20 +1,20 @@
-#pragma once
+﻿#pragma once
 #include "IBaseFeature.h"
 #include "Offsets.h"
 #include "Memory.h"
-namespace ExternalCheat {
+namespace ProcessDebugger {
 	namespace Features {
-        class Bhop : public IBaseFeature {
+        class InputAutomation : public IBaseFeature {
         private:
             DWORD jump;
             DWORD air;
         public:
-            Bhop();
+            InputAutomation();
 
             void UpDate() override;
             void MenuRender() override;
 
-            ~Bhop() override = default;
+            ~InputAutomation() override = default;
         };
 	}
 }

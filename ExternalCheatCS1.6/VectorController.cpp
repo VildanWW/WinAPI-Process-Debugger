@@ -1,8 +1,8 @@
-#include "Aim.h"
+﻿#include "VectorController.h"
 
-ExternalCheat::Features::Aim::Aim() : IBaseFeature(false, false) {}
+ProcessDebugger::Features::VectorController::VectorController() : IBaseFeature(false, false) {}
 
-void ExternalCheat::Features::Aim::UpDate() {
+void ProcessDebugger::Features::VectorController::UpDate() {
 	if (GetAsyncKeyState(VK_LBUTTON) & 0x8000) {
 		bool found = false;
 		float targetAng[2] = { 0, 0 };
@@ -79,5 +79,5 @@ void ExternalCheat::Features::Aim::UpDate() {
 	}
 }
 
-void ExternalCheat::Features::Aim::MenuRender() {}
+void ProcessDebugger::Features::VectorController::MenuRender() {}
 

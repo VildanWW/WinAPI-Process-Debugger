@@ -1,7 +1,7 @@
-#pragma once
+﻿#pragma once
 #include <Windows.h>
 
-namespace ExternalCheat {
+namespace ProcessDebugger {
 	namespace Offsets {
         inline constexpr uintptr_t positionPlayers = 0x2F3DB44;
         inline constexpr uintptr_t statePlayers = 0x3EF8CC;

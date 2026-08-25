@@ -24,6 +24,7 @@
     <ProjectGuid>{a4fd9e78-e4b2-416c-a031-cb07d798b5b1}</ProjectGuid>
     <RootNamespace>ExternalCheatCS16</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>WinAPI-Process-Debugger</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -127,9 +128,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Aim.cpp" />
-    <ClCompile Include="Bhop.cpp" />
-    <ClCompile Include="Esp.cpp" />
+    <ClCompile Include="VectorController.cpp" />
+    <ClCompile Include="InputAutomation.cpp" />
+    <ClCompile Include="EntityVisualizer.cpp" />
     <ClCompile Include="imgui.cpp" />
     <ClCompile Include="imgui_draw.cpp" />
     <ClCompile Include="imgui_impl_dx9.cpp" />
@@ -139,16 +140,16 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Memory.cpp" />
     <ClCompile Include="Menu.cpp" />
-    <ClCompile Include="NoRecoil.cpp" />
+    <ClCompile Include="StabilizationSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Aim.h" />
-    <ClInclude Include="Bhop.h" />
-    <ClInclude Include="Esp.h" />
+    <ClInclude Include="VectorController.h" />
+    <ClInclude Include="InputAutomation.h" />
+    <ClInclude Include="EntityVisualizer.h" />
     <ClInclude Include="IBaseFeature.h" />
     <ClInclude Include="Memory.h" />
     <ClInclude Include="Menu.h" />
-    <ClInclude Include="NoRecoil.h" />
+    <ClInclude Include="StabilizationSystem.h" />
     <ClInclude Include="Offsets.h" />
     <ClInclude Include="Settings.h" />
   </ItemGroup>

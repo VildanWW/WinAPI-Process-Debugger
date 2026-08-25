@@ -1,4 +1,4 @@
-#include "Esp.h"
+﻿#include "EntityVisualizer.h"
 #include "IBaseFeature.h"
 #include "Memory.h"
 #include "Offsets.h"
@@ -6,7 +6,7 @@
 
 #pragma comment(lib, "d3d9.lib")
 
-ExternalCheat::Features::Esp::Esp() : IBaseFeature(false, false) {
+ProcessDebugger::Features::EntityVisualizer::EntityVisualizer() : IBaseFeature(false, false) {
 	GetWindowRect(Core::hwnd, &gRect);
 
 	sW = gRect.right - gRect.left;
@@ -26,7 +26,7 @@ ExternalCheat::Features::Esp::Esp() : IBaseFeature(false, false) {
 	d3d->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, ovl, D3DCREATE_SOFTWARE_VERTEXPROCESSING, &d3dpp, &d3dDevice);
 }
 
-void ExternalCheat::Features::Esp::UpDate() {
+void ProcessDebugger::Features::EntityVisualizer::UpDate() {
 
 	d3dDevice->Clear(0, NULL, D3DCLEAR_TARGET, 0, 1.0f, 0);
 	d3dDevice->BeginScene();
@@ -44,22 +44,22 @@ void ExternalCheat::Features::Esp::UpDate() {
 	d3dDevice->Present(NULL, NULL, NULL, NULL);
 }
 
-void ExternalCheat::Features::Esp::DrawLine(float x1, float y1, float x2, float y2, DWORD color) {
+void ProcessDebugger::Features::EntityVisualizer::DrawLine(float x1, float y1, float x2, float y2, DWORD color) {
 	D3DVertex v[] = { {x1, y1, 0, 1, color}, {x2, y2, 0, 1, color} };
 	d3dDevice->SetFVF(D3DFVF_XYZRHW | D3DFVF_DIFFUSE);
 	d3dDevice->DrawPrimitiveUP(D3DPT_LINELIST, 1, v, sizeof(D3DVertex));
 }
 
-void ExternalCheat::Features::Esp::DrawEspBox(int x, int y, int w, int h, DWORD color) {
+void ProcessDebugger::Features::EntityVisualizer::DrawEspBox(int x, int y, int w, int h, DWORD color) {
 	DrawLine(x - w / 2, y - h, x + w / 2, y - h, color); 
 	DrawLine(x - w / 2, y, x + w / 2, y, color);         
 	DrawLine(x - w / 2, y - h, x - w / 2, y, color);    
 	DrawLine(x + w / 2, y - h, x + w / 2, y, color);
 }
 
-void ExternalCheat::Features::Esp::MenuRender() {}
+void ProcessDebugger::Features::EntityVisualizer::MenuRender() {}
 
-ExternalCheat::Features::Esp::~Esp() {
+ProcessDebugger::Features::EntityVisualizer::~EntityVisualizer() {
 	d3dDevice->Release();
 	d3d->Release();
 	DestroyWindow(ovl);

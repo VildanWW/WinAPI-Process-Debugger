@@ -1,11 +1,11 @@
-#include "Bhop.h"
+﻿#include "InputAutomation.h"
 #include "Memory.h"
 #include "IBaseFeature.h"
 #include <Windows.h>
 
-ExternalCheat::Features::Bhop::Bhop() : IBaseFeature(false, true), jump(Core::clientBase + Offsets::responseJump), air(Core::clientBase + Offsets::flagJump) {}
+ProcessDebugger::Features::InputAutomation::InputAutomation() : IBaseFeature(false, true), jump(Core::clientBase + Offsets::responseJump), air(Core::clientBase + Offsets::flagJump) {}
 
-void ExternalCheat::Features::Bhop::UpDate() {
+void ProcessDebugger::Features::InputAutomation::UpDate() {
 	if (GetAsyncKeyState(VK_SPACE)) {
 		int airState;
 
@@ -24,6 +24,6 @@ void ExternalCheat::Features::Bhop::UpDate() {
 	}
 }
 
-void ExternalCheat::Features::Bhop::MenuRender() {}
+void ProcessDebugger::Features::InputAutomation::MenuRender() {}
 
 

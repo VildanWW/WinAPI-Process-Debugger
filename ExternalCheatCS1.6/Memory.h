@@ -1,7 +1,7 @@
-#pragma once
+﻿#pragma once
 #include <Windows.h>
 
-namespace ExternalCheat {
+namespace ProcessDebugger {
 	namespace Core {
 		inline HANDLE hProcess;
 		inline DWORD procId;

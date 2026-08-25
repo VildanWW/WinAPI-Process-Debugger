@@ -1,8 +1,8 @@
-#include "NoRecoil.h"
+﻿#include "StabilizationSystem.h"
 
-ExternalCheat::Features::NoRecoil::NoRecoil() : IBaseFeature (false, true) {}
+ProcessDebugger::Features::StabilizationSystem::StabilizationSystem() : IBaseFeature (false, true) {}
 
-void ExternalCheat::Features::NoRecoil::UpDate() {
+void ProcessDebugger::Features::StabilizationSystem::UpDate() {
 	if (GetAsyncKeyState(VK_LBUTTON) & 0x8000) {
 		float currentPunch;
 		ReadProcessMemory(Core::hProcess, (LPCVOID)(Core::hwBase + Offsets::punch), &currentPunch, 4, NULL);
@@ -25,4 +25,4 @@ void ExternalCheat::Features::NoRecoil::UpDate() {
 	}
 }
 
-void ExternalCheat::Features::NoRecoil::MenuRender() {}
+void ProcessDebugger::Features::StabilizationSystem::MenuRender() {}

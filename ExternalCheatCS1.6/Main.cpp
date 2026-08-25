@@ -3,19 +3,19 @@
 #include <thread>
 #include <memory>
 #include "Memory.h"
-#include "Bhop.h"
-#include "Esp.h"
-#include "Aim.h"
+#include "InputAutomation.h"
+#include "EntityVisualizer.h"
+#include "VectorController.h"
 #include "IBaseFeature.h"
 #include "Menu.h"
-#include "NoRecoil.h"
+#include "StabilizationSystem.h"
 #include "Settings.h"
 #include <typeinfo>
 
 #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
 
-namespace EF = ExternalCheat::Features;
-namespace EC = ExternalCheat::Core;
+namespace EF = ProcessDebugger::Features;
+namespace EC = ProcessDebugger::Core;
 
 int main() {
 	if (!EC::AttachToProcess()) return 0;
@@ -24,10 +24,10 @@ int main() {
 	EC::clientBase = EC::FindModuleAddress(EC::procId, L"client.dll");
 	EC::hwBase = EC::FindModuleAddress(EC::procId, L"hw.dll");
 
-	feature.push_back(std::make_unique<EF::Bhop>());
-	feature.push_back(std::make_unique<EF::Esp>());
-	feature.push_back(std::make_unique<EF::Aim>());
-	feature.push_back(std::make_unique<EF::NoRecoil>());
+	feature.push_back(std::make_unique<EF::InputAutomation>());
+	feature.push_back(std::make_unique<EF::EntityVisualizer>());
+	feature.push_back(std::make_unique<EF::VectorController>());
+	feature.push_back(std::make_unique<EF::StabilizationSystem>());
 
 	for (auto& f : feature) {
 		if (f->getBackGround()) {
@@ -37,7 +37,7 @@ int main() {
 					if (rawPtr->getEnabled()) {
 						rawPtr->UpDate();
 					}
-					if (typeid(*rawPtr) != typeid(EF::Bhop)) {
+					if (typeid(*rawPtr) != typeid(EF::InputAutomation)) {
 						Sleep(1);
 					}else std::this_thread::yield();
 				}
@@ -48,7 +48,7 @@ int main() {
 	threads.push_back(std::thread(Menu::MenuThread));
 
 	while (!Settings::bShouldQuit) {
-		ExternalCheat::Update();
+		ProcessDebugger::Update();
 		for (auto& f : feature) {
 			if (!f->getBackGround()) {
 				f->UpDate();

@@ -1,10 +1,10 @@
-#pragma once
+﻿#pragma once
 #include "Memory.h"
 #include "Offsets.h"
 #include <vector>
 #define M_PI 3.14159265358979323846f
 
-namespace ExternalCheat {
+namespace ProcessDebugger {
 	struct Vector3 { float x, y, z; };
 	struct ViewMatrix { float m[16]; };
 	struct PlayerData { Vector3 pos; int state; int team; int index; int yaw; };
