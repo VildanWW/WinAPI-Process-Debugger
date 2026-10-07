@@ -1,4 +1,4 @@
-#include "Menu.h"
+﻿#include "Menu.h"
 #include "Settings.h"
 
 #pragma comment(lib, "dwmapi.lib")
@@ -10,26 +10,21 @@ extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg
 static bool s_bIsDragging = false;
 static POINT s_DragStartMousePos = { 0, 0 };
 static POINT s_DragStartWindowPos = { 0, 0 };
-static bool s_bIsOverButton = false; // Check if hovering over button
+static bool s_bIsOverButton = false;
 
 LRESULT CALLBACK Menu::WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
-    // Let ImGui handle messages first
     if (ImGui_ImplWin32_WndProcHandler(hwnd, msg, wParam, lParam))
         return true;
 
     switch (msg) {
         case WM_LBUTTONDOWN: {
-            // Get cursor position
             POINT pt = { LOWORD(lParam), HIWORD(lParam) };
-
-            // Check if we clicked the close button
             POINT screenPt = pt;
             ClientToScreen(hwnd, &screenPt);
 
             RECT windowRect;
             GetWindowRect(hwnd, &windowRect);
 
-            // Close button area
             RECT closeButtonRect = {
                 windowRect.right - 90,
                 windowRect.top + 5,
@@ -37,12 +32,10 @@ LRESULT CALLBACK Menu::WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam
                 windowRect.top + 30
             };
 
-            // If clicked close button, let ImGui handle it
             if (PtInRect(&closeButtonRect, screenPt)) {
                 break;
             }
 
-            // If clicked elsewhere, start dragging window
             s_bIsDragging = true;
             GetCursorPos(&s_DragStartMousePos);
             GetWindowRect(hwnd, reinterpret_cast<RECT*>(&s_DragStartWindowPos));
@@ -85,18 +78,15 @@ LRESULT CALLBACK Menu::WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam
 }
 
 void Menu::Installation(HWND hwnd, IDirect3DDevice9* pDevice) {
-    // Setup ImGui
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGui_ImplWin32_Init(hwnd);
     ImGui_ImplDX9_Init(pDevice);
 
-    // Style settings
     ImGui::StyleColorsDark();
     ImGui::GetIO().IniFilename = nullptr;
     ImGui::GetIO().ConfigWindowsMoveFromTitleBarOnly = false;
 
-    // Customize style
     ImGuiStyle& style = ImGui::GetStyle();
     style.WindowRounding = 8.0f;
     style.FrameRounding = 4.0f;
@@ -106,7 +96,6 @@ void Menu::Installation(HWND hwnd, IDirect3DDevice9* pDevice) {
     style.FramePadding = ImVec2(8, 6);
     style.ItemSpacing = ImVec2(10, 8);
 
-    // Semi-transparent colors
     style.Colors[ImGuiCol_WindowBg] = ImVec4(0.08f, 0.08f, 0.08f, 0.95f);
     style.Colors[ImGuiCol_TitleBg] = ImVec4(0.15f, 0.15f, 0.15f, 0.95f);
     style.Colors[ImGuiCol_TitleBgActive] = ImVec4(0.2f, 0.2f, 0.2f, 0.95f);
@@ -122,20 +111,16 @@ void Menu::Installation(HWND hwnd, IDirect3DDevice9* pDevice) {
 }
 
 void Menu::Render(HWND hwnd) {
-    // Start ImGui frame
     ImGui_ImplDX9_NewFrame();
     ImGui_ImplWin32_NewFrame();
     ImGui::NewFrame();
 
-    // Always show cursor
     ImGui::GetIO().MouseDrawCursor = true;
 
-    // Get window size
     RECT rc;
     GetClientRect(hwnd, &rc);
     ImVec2 windowSize = ImVec2((float)(rc.right - rc.left), (float)(rc.bottom - rc.top));
 
-    // Main window setup
     ImGui::SetNextWindowSize(windowSize, ImGuiCond_Always);
     ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Always);
 
@@ -150,15 +135,12 @@ void Menu::Render(HWND hwnd) {
     ImGui::BeginChild("##TitleBar", ImVec2(windowSize.x, 35), false,
         ImGuiWindowFlags_NoMove);
 
-    // Title text
     ImGui::SetCursorPos(ImVec2(15, 10));
     ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.5f, 1.0f), "ARCHER MASTER");
 
-    // Close button
     ImGui::SameLine(windowSize.x - 90);
     ImGui::SetCursorPosY(7);
 
-    // Style close button
     ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.8f, 0.2f, 0.2f, 1.0f));
     ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(1.0f, 0.3f, 0.3f, 1.0f));
     ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(1.0f, 0.5f, 0.5f, 1.0f));
@@ -169,44 +151,41 @@ void Menu::Render(HWND hwnd) {
         PostMessage(hwnd, WM_CLOSE, 0, 0);
     }
 
-    // Check if hovering over button
     s_bIsOverButton = ImGui::IsItemHovered();
 
     ImGui::PopStyleColor(4);
     ImGui::EndChild();
     ImGui::PopStyleColor();
 
-    // Separator line
     ImGui::GetWindowDrawList()->AddLine(
         ImVec2(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y + 35),
         ImVec2(ImGui::GetWindowPos().x + windowSize.x, ImGui::GetWindowPos().y + 35),
         ImGui::GetColorU32(ImVec4(0.5f, 0.5f, 0.5f, 0.5f)), 2.0f);
 
-    // Spacing after title
     ImGui::Spacing();
     ImGui::Spacing();
 
     // ===== MAIN CONTENT =====
-    // Features section
     ImGui::TextColored(ImVec4(0.5f, 1.0f, 0.5f, 1.0f), "GAME FEATURES");
     ImGui::Separator();
     ImGui::Spacing();
 
-    // Checkboxes
+    // === Индексы фич сдвинуты после удаления ESP ===
+    // [0] InputAutomation   -> BUNNY HOP
+    // [1] VectorController  -> AIM ASSIST
+    // [2] StabilizationSystem -> NO RECOIL
     ImGui::Checkbox("BUNNY HOP", feature[0]->getEnabledPtr());
     ImGui::Spacing();
-    ImGui::Checkbox("AIM ASSIST", feature[2]->getEnabledPtr());
+    ImGui::Checkbox("AIM ASSIST", feature[1]->getEnabledPtr());
     ImGui::Spacing();
     ImGui::Separator();
     ImGui::Spacing();
-    ImGui::Checkbox("WALLHACK (ESP)", feature[1]->getEnabledPtr());
-    ImGui::Spacing();
-    ImGui::Checkbox("NO RECOIL", feature[3]->getEnabledPtr());
+    // WALLHACK (ESP) — отключён, чтобы не ломать прозрачность меню
+    ImGui::Checkbox("NO RECOIL", feature[2]->getEnabledPtr());
     ImGui::Spacing();
     ImGui::Separator();
     ImGui::Spacing();
 
-    // Info section
     ImGui::TextColored(ImVec4(1.0f, 0.8f, 0.0f, 1.0f), "CONTROLS INFO:");
     ImGui::BulletText("Click ANYWHERE (except close button) to move");
     ImGui::BulletText("Drag to reposition window");
@@ -217,7 +196,6 @@ void Menu::Render(HWND hwnd) {
     ImGui::Separator();
     ImGui::Spacing();
 
-    // Status info
     if (s_bIsDragging) {
         ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.0f, 1.0f), "STATUS: DRAGGING WINDOW");
     }
@@ -230,7 +208,6 @@ void Menu::Render(HWND hwnd) {
 
     ImGui::Text("FPS: %.1f", ImGui::GetIO().Framerate);
 
-    // Demo button
     ImGui::Spacing();
     ImGui::Separator();
     ImGui::Spacing();
@@ -245,7 +222,6 @@ void Menu::Render(HWND hwnd) {
 
     ImGui::PopStyleColor(3);
 
-    // Tooltip for dragging
     if (ImGui::IsWindowHovered() && !s_bIsOverButton) {
         ImGui::SetTooltip("Click and drag to move this window!\n(Works anywhere except buttons)");
     }
@@ -258,7 +234,6 @@ void Menu::Render(HWND hwnd) {
 }
 
 void Menu::MenuThread() {
-    // Register window class
     WNDCLASSEX wc = {
         sizeof(WNDCLASSEX),
         CS_CLASSDC,
@@ -275,7 +250,6 @@ void Menu::MenuThread() {
     };
     RegisterClassEx(&wc);
 
-    // Create window
     HWND hwnd = CreateWindowEx(
         WS_EX_TOPMOST | WS_EX_LAYERED,
         wc.lpszClassName,
@@ -289,14 +263,11 @@ void Menu::MenuThread() {
         NULL
     );
 
-    // Transparency
     SetLayeredWindowAttributes(hwnd, RGB(0, 0, 0), 255, LWA_ALPHA);
 
-    // Remove DWM borders
     MARGINS m = { 0, 0, 0, 0 };
     DwmExtendFrameIntoClientArea(hwnd, &m);
 
-    // DirectX setup
     LPDIRECT3D9 pD3D = Direct3DCreate9(D3D_SDK_VERSION);
     D3DPRESENT_PARAMETERS d3dpp = { 0 };
     d3dpp.Windowed = TRUE;
@@ -316,7 +287,6 @@ void Menu::MenuThread() {
     Installation(hwnd, pDevice);
     ShowWindow(hwnd, SW_SHOW);
 
-    // Main loop
     MSG msg;
     while (!Settings::bShouldQuit) {
         while (PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE)) {
@@ -341,7 +311,6 @@ void Menu::MenuThread() {
         std::this_thread::sleep_for(std::chrono::milliseconds(1));
     }
 
-    // Cleanup
     ImGui_ImplDX9_Shutdown();
     ImGui_ImplWin32_Shutdown();
     ImGui::DestroyContext();
