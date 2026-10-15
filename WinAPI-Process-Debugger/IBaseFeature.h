@@ -98,6 +98,11 @@ namespace ProcessDebugger {
 			IBaseFeature(bool enabled = false, bool backGround = false) : enabled(enabled), backGround(backGround) {};
 
 			virtual ~IBaseFeature() = default;
+
+			IBaseFeature(const IBaseFeature&) = delete;
+			IBaseFeature& operator=(const IBaseFeature&) = delete;
+			IBaseFeature(IBaseFeature&&) = delete;
+			IBaseFeature& operator=(IBaseFeature&&) = delete;
 		};
 	}
 }

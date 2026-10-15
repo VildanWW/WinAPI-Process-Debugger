@@ -10,8 +10,6 @@ namespace ProcessDebugger {
 
 			void UpDate() override;
 			void MenuRender() override;
-
-			~VectorController() override = default;
 		};
 	}
 }

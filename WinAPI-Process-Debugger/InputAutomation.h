@@ -13,8 +13,6 @@ namespace ProcessDebugger {
 
             void UpDate() override;
             void MenuRender() override;
-
-            ~InputAutomation() override = default;
         };
 	}
 }

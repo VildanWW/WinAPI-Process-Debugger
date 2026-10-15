@@ -165,66 +165,24 @@ void Menu::Render(HWND hwnd) {
     ImGui::Spacing();
     ImGui::Spacing();
 
-    // ===== MAIN CONTENT =====
     ImGui::TextColored(ImVec4(0.5f, 1.0f, 0.5f, 1.0f), "GAME FEATURES");
     ImGui::Separator();
     ImGui::Spacing();
 
-    // === Индексы фич сдвинуты после удаления ESP ===
-    // [0] InputAutomation   -> BUNNY HOP
-    // [1] VectorController  -> AIM ASSIST
-    // [2] StabilizationSystem -> NO RECOIL
     ImGui::Checkbox("BUNNY HOP", feature[0]->getEnabledPtr());
     ImGui::Spacing();
-    ImGui::Checkbox("AIM ASSIST", feature[1]->getEnabledPtr());
+    ImGui::Checkbox("AIM ASSIST", feature[2]->getEnabledPtr());
     ImGui::Spacing();
-    ImGui::Separator();
-    ImGui::Spacing();
-    // WALLHACK (ESP) — отключён, чтобы не ломать прозрачность меню
-    ImGui::Checkbox("NO RECOIL", feature[2]->getEnabledPtr());
-    ImGui::Spacing();
-    ImGui::Separator();
-    ImGui::Spacing();
-
-    ImGui::TextColored(ImVec4(1.0f, 0.8f, 0.0f, 1.0f), "CONTROLS INFO:");
-    ImGui::BulletText("Click ANYWHERE (except close button) to move");
-    ImGui::BulletText("Drag to reposition window");
-    ImGui::BulletText("Checkboxes work normally");
-    ImGui::BulletText("Press INSERT to toggle menu");
-
+    ImGui::Checkbox("NO RECOIL", feature[3]->getEnabledPtr());
     ImGui::Spacing();
     ImGui::Separator();
     ImGui::Spacing();
 
-    if (s_bIsDragging) {
-        ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.0f, 1.0f), "STATUS: DRAGGING WINDOW");
-    }
-    else if (s_bIsOverButton) {
-        ImGui::TextColored(ImVec4(1.0f, 0.5f, 0.5f, 1.0f), "STATUS: OVER CLOSE BUTTON");
-    }
-    else {
-        ImGui::TextColored(ImVec4(0.7f, 0.7f, 1.0f, 1.0f), "STATUS: READY TO DRAG");
-    }
-
-    ImGui::Text("FPS: %.1f", ImGui::GetIO().Framerate);
-
+    ImGui::TextColored(ImVec4(1.0f, 0.4f, 0.4f, 1.0f), "VISUALS");
+    ImGui::Checkbox("WALLHACK (ESP)", feature[1]->getEnabledPtr());
     ImGui::Spacing();
     ImGui::Separator();
     ImGui::Spacing();
-
-    ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.3f, 0.5f, 0.8f, 1.0f));
-    ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.4f, 0.6f, 0.9f, 1.0f));
-    ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.5f, 0.7f, 1.0f, 1.0f));
-
-    if (ImGui::Button("TEST BUTTON (CLICK ME)", ImVec2(200, 40))) {
-        MessageBoxA(hwnd, "Test button clicked!\nWindow dragging works everywhere except buttons.", "Success", MB_OK);
-    }
-
-    ImGui::PopStyleColor(3);
-
-    if (ImGui::IsWindowHovered() && !s_bIsOverButton) {
-        ImGui::SetTooltip("Click and drag to move this window!\n(Works anywhere except buttons)");
-    }
 
     ImGui::End();
 

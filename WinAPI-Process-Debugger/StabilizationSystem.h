@@ -15,8 +15,6 @@ namespace ProcessDebugger {
 
 			void UpDate() override;
 			void MenuRender() override;
-
-			~StabilizationSystem() override = default;
 		};
 	}
 }

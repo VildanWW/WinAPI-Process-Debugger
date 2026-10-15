@@ -25,7 +25,7 @@ int main() {
 	EC::hwBase = EC::FindModuleAddress(EC::procId, L"hw.dll");
 
 	feature.push_back(std::make_unique<EF::InputAutomation>());
-	//feature.push_back(std::make_unique<EF::EntityVisualizer>());
+	feature.push_back(std::make_unique<EF::EntityVisualizer>());
 	feature.push_back(std::make_unique<EF::VectorController>());
 	feature.push_back(std::make_unique<EF::StabilizationSystem>());
 
@@ -50,7 +50,7 @@ int main() {
 	while (!Settings::bShouldQuit) {
 		ProcessDebugger::Update();
 		for (auto& f : feature) {
-			if (!f->getBackGround()) {
+			if (!f->getBackGround() && f->getEnabled()) {
 				f->UpDate();
 			}
 		}
