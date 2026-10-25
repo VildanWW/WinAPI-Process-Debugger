@@ -2,7 +2,7 @@
 
 Инструмент динамического анализа памяти процессов и автоматизации взаимодействия с адресным пространством приложений (на примере игрового движка GoldSrc / CS 1.6).
 
-<img width="560" height="397" alt="image" src="https://github.com/user-attachments/assets/743b0364-289e-4662-8a64-aa50c988949f" />
+<img width="560" height="397" alt="image" src="/Images/1.png" />
 
 
 ## 📌 Описание проекта
@@ -45,10 +45,10 @@
 ## 📊 Результаты работы
 
 ### Визуализация трекинга объектов (WorldToScreen):
-<img width="982" height="570" alt="Снимок экрана 2026-02-04 195947" src="https://github.com/user-attachments/assets/1d8bf543-e503-403d-922d-f00fe12f19b3" />
+<img width="982" height="570" alt="Снимок экрана 2026-02-04 195947" src="/Images/2.png" />
 
 ### Сравнение кучности с системой стабилизации и без неё:
-<img width="1204" height="647" alt="Снимок экрана 2026-02-04 192625" src="https://github.com/user-attachments/assets/21e54d4f-96f7-4586-a772-13d0c13d62d2" />
+<img width="1204" height="647" alt="Снимок экрана 2026-02-04 192625" src="/Images/3.png" />
 
 ---
 
