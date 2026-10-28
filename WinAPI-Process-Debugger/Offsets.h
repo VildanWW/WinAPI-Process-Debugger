@@ -12,5 +12,8 @@ namespace ProcessDebugger {
         inline constexpr uintptr_t punch = 0x2F324F0;
         inline constexpr uintptr_t responseJump = 0x1A0EA8;
         inline constexpr uintptr_t flagJump = 0x1E94C0;
+
+        inline uintptr_t clientBase;
+        inline uintptr_t hwBase;
 	}
 }

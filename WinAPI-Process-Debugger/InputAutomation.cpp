@@ -3,27 +3,34 @@
 #include "IBaseFeature.h"
 #include <Windows.h>
 
-ProcessDebugger::Features::InputAutomation::InputAutomation() : IBaseFeature(false, true), jump(Core::clientBase + Offsets::responseJump), air(Core::clientBase + Offsets::flagJump) {}
+namespace ProcessDebugger {
+	namespace Features {
+		InputAutomation::InputAutomation() : IBaseFeature(true, true), jump(0), air(0) {}
 
-void ProcessDebugger::Features::InputAutomation::UpDate() {
-	if (GetAsyncKeyState(VK_SPACE)) {
-		int airState;
+		void InputAutomation::UpDate() {
+			if (GetAsyncKeyState(VK_SPACE)) {
+				int airState;
+				if (jump == 0 || air == 0) {
+					jump = Offsets::clientBase + Offsets::responseJump;
+					air = Offsets::clientBase + Offsets::flagJump;
+				}
+				ReadProcessMemory(handler->GetHandle(), (LPCVOID)air, &airState, sizeof(airState), NULL);
 
-		ReadProcessMemory(Core::hProcess, (LPCVOID)air, &airState, 4, NULL);
+				if (airState == 0) {
+					const int valueFive = 5;
+					const int valueFour = 4;
 
-		if (airState == 0) {
-			const int valueFive = 5;
-			const int valueFour = 4;
+					WriteProcessMemory(handler->GetHandle(), (LPVOID)jump, &valueFive, sizeof(valueFive), NULL);
 
-			WriteProcessMemory(Core::hProcess, (LPVOID)jump, &valueFive, 4, NULL);
+					Sleep(5);
 
-			Sleep(5);
-
-			WriteProcessMemory(Core::hProcess, (LPVOID)jump, &valueFour, 4, NULL);
+					WriteProcessMemory(handler->GetHandle(), (LPVOID)jump, &valueFour, sizeof(valueFive), NULL);
+				}
+			}
 		}
+
+		void InputAutomation::MenuRender() {}
 	}
 }
-
-void ProcessDebugger::Features::InputAutomation::MenuRender() {}
 
 

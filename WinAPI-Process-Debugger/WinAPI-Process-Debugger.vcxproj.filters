@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="VectorController.cpp" />
+    <ClCompile Include="InputAutomation.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="ProcessHandler.cpp" />
+    <ClCompile Include="StabilizationSystem.cpp" />
+    <ClCompile Include="ImGui\imgui.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_demo.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_draw.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_impl_dx11.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_impl_win32.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_tables.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_widgets.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ProjectMath.cpp" />
+    <ClCompile Include="EntityManager.cpp" />
+    <ClCompile Include="GameDataBus.cpp" />
+    <ClCompile Include="FeatureManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="VectorController.h" />
+    <ClInclude Include="InputAutomation.h" />
+    <ClInclude Include="IBaseFeature.h" />
+    <ClInclude Include="ProcessHandler.h" />
+    <ClInclude Include="StabilizationSystem.h" />
+    <ClInclude Include="Offsets.h" />
+    <ClInclude Include="Settings.h" />
+    <ClInclude Include="ImGui\imconfig.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui_impl_dx11.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui_impl_win32.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui_internal.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imstb_rectpack.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imstb_textedit.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imstb_truetype.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ProjectMath.h" />
+    <ClInclude Include="GameStructures.h" />
+    <ClInclude Include="EntityManager.h" />
+    <ClInclude Include="GameDataBus.h" />
+    <ClInclude Include="FeatureManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="ImGui">
+      <UniqueIdentifier>{c4281985-e248-400a-abbd-3868f23555cf}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

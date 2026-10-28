@@ -203,7 +203,7 @@ void Menu::MenuThread() {
         LoadCursor(NULL, IDC_ARROW),
         NULL,
         NULL,
-        L"ArcherClass",
+        L"Aurora",
         NULL
     };
     RegisterClassEx(&wc);
@@ -211,7 +211,7 @@ void Menu::MenuThread() {
     HWND hwnd = CreateWindowEx(
         WS_EX_TOPMOST | WS_EX_LAYERED,
         wc.lpszClassName,
-        L"Archer Master",
+        L"Aurora",
         WS_POPUP,
         100, 100,
         450, 500,

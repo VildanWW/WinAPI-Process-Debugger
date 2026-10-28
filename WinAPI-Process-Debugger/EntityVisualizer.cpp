@@ -3,7 +3,8 @@
 #include "Memory.h"
 #include "Offsets.h"
 #include <d3d9.h>
-
+#include <dwmapi.h>
+#include <string>
 #pragma comment(lib, "d3d9.lib")
 
 ProcessDebugger::Features::EntityVisualizer::EntityVisualizer() : IBaseFeature(false, false) {
@@ -23,7 +24,7 @@ ProcessDebugger::Features::EntityVisualizer::EntityVisualizer() : IBaseFeature(f
 	d3dpp.hDeviceWindow = ovl;
 	d3dpp.BackBufferFormat = D3DFMT_A8R8G8B8;
 
-	d3d->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, ovl, D3DCREATE_SOFTWARE_VERTEXPROCESSING, &d3dpp, &d3dDevice);
+	d3d->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, ovl, D3DCREATE_HARDWARE_VERTEXPROCESSING, &d3dpp, &d3dDevice);
 }
 
 void ProcessDebugger::Features::EntityVisualizer::UpDate() {

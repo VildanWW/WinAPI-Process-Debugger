@@ -128,27 +128,41 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="EntityManager.cpp" />
+    <ClCompile Include="FeatureManager.cpp" />
+    <ClCompile Include="GameDataBus.cpp" />
+    <ClCompile Include="ImGui\imgui.cpp" />
+    <ClCompile Include="ImGui\imgui_demo.cpp" />
+    <ClCompile Include="ImGui\imgui_draw.cpp" />
+    <ClCompile Include="ImGui\imgui_impl_dx11.cpp" />
+    <ClCompile Include="ImGui\imgui_impl_win32.cpp" />
+    <ClCompile Include="ImGui\imgui_tables.cpp" />
+    <ClCompile Include="ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="ProjectMath.cpp" />
     <ClCompile Include="VectorController.cpp" />
     <ClCompile Include="InputAutomation.cpp" />
-    <ClCompile Include="EntityVisualizer.cpp" />
-    <ClCompile Include="imgui.cpp" />
-    <ClCompile Include="imgui_draw.cpp" />
-    <ClCompile Include="imgui_impl_dx9.cpp" />
-    <ClCompile Include="imgui_impl_win32.cpp" />
-    <ClCompile Include="imgui_tables.cpp" />
-    <ClCompile Include="imgui_widgets.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Memory.cpp" />
-    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="ProcessHandler.cpp" />
     <ClCompile Include="StabilizationSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EntityManager.h" />
+    <ClInclude Include="FeatureManager.h" />
+    <ClInclude Include="GameDataBus.h" />
+    <ClInclude Include="GameStructures.h" />
+    <ClInclude Include="ImGui\imconfig.h" />
+    <ClInclude Include="ImGui\imgui.h" />
+    <ClInclude Include="ImGui\imgui_impl_dx11.h" />
+    <ClInclude Include="ImGui\imgui_impl_win32.h" />
+    <ClInclude Include="ImGui\imgui_internal.h" />
+    <ClInclude Include="ImGui\imstb_rectpack.h" />
+    <ClInclude Include="ImGui\imstb_textedit.h" />
+    <ClInclude Include="ImGui\imstb_truetype.h" />
+    <ClInclude Include="ProjectMath.h" />
     <ClInclude Include="VectorController.h" />
     <ClInclude Include="InputAutomation.h" />
-    <ClInclude Include="EntityVisualizer.h" />
     <ClInclude Include="IBaseFeature.h" />
-    <ClInclude Include="Memory.h" />
-    <ClInclude Include="Menu.h" />
+    <ClInclude Include="ProcessHandler.h" />
     <ClInclude Include="StabilizationSystem.h" />
     <ClInclude Include="Offsets.h" />
     <ClInclude Include="Settings.h" />

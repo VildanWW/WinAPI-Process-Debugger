@@ -1,7 +1,13 @@
-#pragma once
+﻿#pragma once
+#include <atomic>
 
-namespace Settings {
-	// State of window
-	inline bool bMenuOpen = true;
-	inline bool bShouldQuit = false;
+namespace ProcessDebugger {
+	namespace Settings {
+		inline std::atomic<bool> running{ true };
+
+		inline const char* nameProcess = "Counter-Strike";
+
+		inline const wchar_t* nameClient = L"client.dll";
+		inline const wchar_t* nameHw = L"hw.dll";
+	}
 }

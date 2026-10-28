@@ -1,13 +1,13 @@
 ﻿#pragma once
 #include "IBaseFeature.h"
 #include "Offsets.h"
-#include "Memory.h"
+
 namespace ProcessDebugger {
 	namespace Features {
         class InputAutomation : public IBaseFeature {
         private:
-            DWORD jump;
-            DWORD air;
+            uintptr_t jump;
+            uintptr_t air;
         public:
             InputAutomation();
 

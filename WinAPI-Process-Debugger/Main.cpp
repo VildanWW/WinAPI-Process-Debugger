@@ -1,65 +1,36 @@
-﻿#include <Windows.h>
-#include <vector>
+﻿#include <memory>
 #include <thread>
-#include <memory>
-#include "Memory.h"
-#include "InputAutomation.h"
-#include "EntityVisualizer.h"
-#include "VectorController.h"
-#include "IBaseFeature.h"
-#include "Menu.h"
-#include "StabilizationSystem.h"
+
+#include "EntityManager.h"
+#include "FeatureManager.h"
+#include "ProcessHandler.h"
 #include "Settings.h"
-#include <typeinfo>
 
-#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
-
-namespace EF = ProcessDebugger::Features;
-namespace EC = ProcessDebugger::Core;
+using namespace ProcessDebugger::Features;
+using namespace ProcessDebugger::Core;
+using namespace ProcessDebugger::Settings;
 
 int main() {
-	if (!EC::AttachToProcess()) return 0;
+    ProcessHandler processHandler;
+    if (!processHandler.Initializiting()) {
+        return -1;
+    }
+    FeatureManager featureManager(&processHandler);
 
-	std::vector<std::thread> threads;
-	EC::clientBase = EC::FindModuleAddress(EC::procId, L"client.dll");
-	EC::hwBase = EC::FindModuleAddress(EC::procId, L"hw.dll");
+    EntityManager entityManager(processHandler);
 
-	feature.push_back(std::make_unique<EF::InputAutomation>());
-	feature.push_back(std::make_unique<EF::EntityVisualizer>());
-	feature.push_back(std::make_unique<EF::VectorController>());
-	feature.push_back(std::make_unique<EF::StabilizationSystem>());
+    std::thread featuresThread(&FeatureManager::UpdateLoop, &featureManager);
+    while (running.load()) {
+        if (GetAsyncKeyState(VK_END)) {
+            running.store(false);
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    }
 
-	for (auto& f : feature) {
-		if (f->getBackGround()) {
-			auto rawPtr = f.get();
-			threads.push_back(std::thread([rawPtr]() {
-				while (!Settings::bShouldQuit) {
-					if (rawPtr->getEnabled()) {
-						rawPtr->UpDate();
-					}
-					if (typeid(*rawPtr) != typeid(EF::InputAutomation)) {
-						Sleep(1);
-					}else std::this_thread::yield();
-				}
-			}));
-		}
-	}
+    if (featuresThread.joinable()) {
+        featuresThread.join();
+    }
 
-	threads.push_back(std::thread(Menu::MenuThread));
-
-	while (!Settings::bShouldQuit) {
-		ProcessDebugger::Update();
-		for (auto& f : feature) {
-			if (!f->getBackGround() && f->getEnabled()) {
-				f->UpDate();
-			}
-		}
-		Sleep(1);
-	}
-
-	for (int i = 0; i < threads.size(); i++) {
-		threads[i].join();
-	}
-
-	return 0;
+    processHandler.Shutdown();
+    return 0;
 }
