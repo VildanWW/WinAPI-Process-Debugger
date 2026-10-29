@@ -18,9 +18,10 @@ int main() {
     }
     EntityManager entityManager(&processHandler);
     GameDataBus gameDataBus;
-
+    
     FeatureManager featureManager(&processHandler, &gameDataBus);
 
+    std::thread fd(&EntityManager::MemoryLoop, &entityManager, std::ref(gameDataBus));
     std::thread featuresThread(&FeatureManager::UpdateLoop, &featureManager);
 
     while (running.load()) {
@@ -32,6 +33,9 @@ int main() {
 
     if (featuresThread.joinable()) {
         featuresThread.join();
+    }
+    if (fd.joinable()) {
+        fd.join();
     }
 
     processHandler.Shutdown();

@@ -18,9 +18,8 @@ namespace ProcessDebugger {
 	namespace Features {
 		class FeatureManager {
 		private:
-
-			Core::ProcessHandler* processHandler;
-			Core::GameDataBus* gameDataBus;
+			Core::ProcessHandler* processHandler = nullptr;
+			Core::GameDataBus* gameDataBus = nullptr;
 
 			std::vector<std::unique_ptr<IBaseFeature>> features;
 

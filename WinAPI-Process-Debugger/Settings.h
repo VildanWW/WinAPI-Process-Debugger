@@ -12,5 +12,6 @@ namespace ProcessDebugger {
 
 		inline int bhop = VK_SPACE;
 		inline int clickAim = VK_LBUTTON;
+		inline float aimFov = 10.0f;
 	}
 }

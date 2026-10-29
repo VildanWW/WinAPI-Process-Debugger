@@ -13,7 +13,7 @@ namespace ProcessDebugger {
 			uintptr_t addr = Offsets::hwBase + Offsets::positionPlayers + (indexPlayer * 0x280) + 0xA0;
 			unsigned char currentByte = 0;
 
-			if (ReadProcessMemory(handler->GetHandle(), reinterpret_cast<LPCVOID>(addr), &currentByte, 1, nullptr)) {
+			if (ReadProcessMemory(handler->GetHandle(), (LPCVOID)(addr), &currentByte, sizeof(currentByte), nullptr)) {
 				if (currentByte != lastPulse[indexPlayer]) {
 					lastPulse[indexPlayer] = currentByte; 
 					return true; 

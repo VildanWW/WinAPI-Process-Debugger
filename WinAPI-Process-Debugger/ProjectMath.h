@@ -3,6 +3,8 @@
 
 namespace ProcessDebugger {
 	namespace ProjectMath {
+		inline constexpr float PI = 3.14159265358979323846f;
+
 		struct Vector3 { float x, y, z; };
 		struct ViewMatrix { float m[16]; };
 
