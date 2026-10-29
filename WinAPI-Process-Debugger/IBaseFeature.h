@@ -4,6 +4,7 @@
 namespace ProcessDebugger {
 	namespace Core {
 		class ProcessHandler;
+		class GameDataBus;
 	}
 }
 namespace ProcessDebugger {
@@ -13,6 +14,7 @@ namespace ProcessDebugger {
 			std::atomic<bool> enabled{ false };
 			std::atomic<bool> background{ false }; // I don't know, this variable will it be used in several threads, but i set it atomic
 			Core::ProcessHandler* handler = nullptr;
+			Core::GameDataBus* gameDataBus = nullptr;
 		public:
 			virtual void UpDate() = 0;
 			virtual void MenuRender() = 0;
@@ -22,6 +24,7 @@ namespace ProcessDebugger {
 			
 			void SetEnabled(bool enabledButton) { enabled = enabledButton; }
 			void SetProcessHandler(Core::ProcessHandler* processHandler) { handler = processHandler; }
+			void SetGameDataBus(Core::GameDataBus* DataBus) { gameDataBus = DataBus; }
 
 			IBaseFeature(bool isEnabled = false, bool isBackGround = false) {
 				enabled.store(isEnabled);

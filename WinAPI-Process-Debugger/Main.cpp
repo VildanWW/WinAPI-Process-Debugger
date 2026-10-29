@@ -4,6 +4,7 @@
 #include "EntityManager.h"
 #include "FeatureManager.h"
 #include "ProcessHandler.h"
+#include "GameDataBus.h"
 #include "Settings.h"
 
 using namespace ProcessDebugger::Features;
@@ -16,9 +17,12 @@ int main() {
         return -1;
     }
     EntityManager entityManager(&processHandler);
-    FeatureManager featureManager(&processHandler);
+    GameDataBus gameDataBus;
+
+    FeatureManager featureManager(&processHandler, &gameDataBus);
 
     std::thread featuresThread(&FeatureManager::UpdateLoop, &featureManager);
+
     while (running.load()) {
         if (GetAsyncKeyState(VK_END)) {
             running.store(false);

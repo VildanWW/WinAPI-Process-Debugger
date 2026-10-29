@@ -10,6 +10,7 @@ namespace ProcessDebugger {
 	}
 	namespace Core {
 		class ProcessHandler;
+		class GameDataBus;
 	}
 }
 
@@ -17,14 +18,17 @@ namespace ProcessDebugger {
 	namespace Features {
 		class FeatureManager {
 		private:
+
+			Core::ProcessHandler* processHandler;
+			Core::GameDataBus* gameDataBus;
+
 			std::vector<std::unique_ptr<IBaseFeature>> features;
 
 			std::condition_variable cvCycleRun;
 			std::mutex mtxCycleRun;
 
-			Core::ProcessHandler* processHandler;
 		public:
-			FeatureManager(Core::ProcessHandler* processHandler);
+			FeatureManager(Core::ProcessHandler* processHandler, Core::GameDataBus* gameDataBus);
 			void UpdateLoop();
 			~FeatureManager();
 		};

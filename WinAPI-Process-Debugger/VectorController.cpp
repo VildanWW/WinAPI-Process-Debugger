@@ -1,5 +1,29 @@
-﻿//#include "VectorController.h"
+﻿#include <Windows.h>
+
+#include "VectorController.h"
+#include "Settings.h"
+#include "Offsets.h"
+#include "ProcessHandler.h"
+
+//namespace ProcessDebugger {
+//	namespace Features {
+//		VectorController::VectorController() : IBaseFeature(true, false) {}
 //
+//		void VectorController::UpDate() {
+//			if (GetAsyncKeyState(VK_LBUTTON) & 0x8000) {
+//				bool found = false;
+//				float targetAng[2] = { 0,0 };
+//
+//				float currentViewAngles[2];
+//				ReadProcessMemory(handler->GetHandle(), (LPCVOID)(Offsets::hwBase + Offsets::viewAngles), &currentViewAngles, sizeof(targetAng), NULL);
+//
+//				if()
+//			}
+//		}
+//	}
+//}
+
+
 //ProcessDebugger::Features::VectorController::VectorController() : IBaseFeature(false, false) {}
 //
 //void ProcessDebugger::Features::VectorController::UpDate() {

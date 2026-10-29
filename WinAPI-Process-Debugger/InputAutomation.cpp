@@ -2,13 +2,14 @@
 #include "Offsets.h"
 #include "ProcessHandler.h"
 #include <Windows.h>
+#include "Settings.h"
 
 namespace ProcessDebugger {
 	namespace Features {
 		InputAutomation::InputAutomation() : IBaseFeature(true, true), jump(0), air(0) {}
 
 		void InputAutomation::UpDate() {
-			if (GetAsyncKeyState(VK_SPACE)) {
+			if (GetAsyncKeyState(Settings::bhop)) {
 				int airState;
 				if (jump == 0 || air == 0) {
 					jump = Offsets::clientBase + Offsets::responseJump;

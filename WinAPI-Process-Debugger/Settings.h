@@ -9,5 +9,8 @@ namespace ProcessDebugger {
 
 		inline const wchar_t* nameClient = L"client.dll";
 		inline const wchar_t* nameHw = L"hw.dll";
+
+		inline int bhop = VK_SPACE;
+		inline int clickAim = VK_LBUTTON;
 	}
 }
