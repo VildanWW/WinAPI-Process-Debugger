@@ -1,8 +1,13 @@
 ﻿#pragma once
 
 #include "GameStructures.h"
-#include "ProcessHandler.h"
-#include "GameDataBus.h"
+
+namespace ProcessDebugger {
+	namespace Core {
+		class GameDataBus;
+		class ProcessHandler;
+	}
+}
 
 namespace ProcessDebugger {
 	namespace Core {
@@ -10,11 +15,11 @@ namespace ProcessDebugger {
 		private:
 			bool IsPlayerActive(int indexPlayer);
 
-			ProcessHandler& handler;
+			ProcessHandler* handler;
 
 			unsigned char lastPulse[Data::countPlayers];
 		public:
-			EntityManager(ProcessHandler& processHandler);
+			EntityManager(ProcessHandler* processHandler);
 
 			void MemoryLoop(GameDataBus& dataBus);
 

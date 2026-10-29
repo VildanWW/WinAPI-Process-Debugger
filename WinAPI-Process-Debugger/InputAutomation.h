@@ -1,6 +1,5 @@
 ﻿#pragma once
 #include "IBaseFeature.h"
-#include "Offsets.h"
 
 namespace ProcessDebugger {
 	namespace Features {

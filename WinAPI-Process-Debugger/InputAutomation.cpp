@@ -1,6 +1,6 @@
 ﻿#include "InputAutomation.h"
-#include "Memory.h"
-#include "IBaseFeature.h"
+#include "Offsets.h"
+#include "ProcessHandler.h"
 #include <Windows.h>
 
 namespace ProcessDebugger {

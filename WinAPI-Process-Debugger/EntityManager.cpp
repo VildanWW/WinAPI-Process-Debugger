@@ -2,6 +2,8 @@
 #include <thread>
 
 #include "EntityManager.h"
+#include "GameDataBus.h"
+#include "ProcessHandler.h"
 #include "Offsets.h"
 #include "Settings.h"
 
@@ -11,7 +13,7 @@ namespace ProcessDebugger {
 			uintptr_t addr = Offsets::hwBase + Offsets::positionPlayers + (indexPlayer * 0x280) + 0xA0;
 			unsigned char currentByte = 0;
 
-			if (ReadProcessMemory(handler.GetHandle(), reinterpret_cast<LPCVOID>(addr), &currentByte, 1, nullptr)) {
+			if (ReadProcessMemory(handler->GetHandle(), reinterpret_cast<LPCVOID>(addr), &currentByte, 1, nullptr)) {
 				if (currentByte != lastPulse[indexPlayer]) {
 					lastPulse[indexPlayer] = currentByte; 
 					return true; 
@@ -20,7 +22,7 @@ namespace ProcessDebugger {
 			return false;
 		}
 
-		EntityManager::EntityManager(ProcessHandler& processHandler) : handler(processHandler), lastPulse{ 0 } {}
+		EntityManager::EntityManager(ProcessHandler* processHandler) : handler(processHandler), lastPulse{ 0 } {}
 
 		void EntityManager::MemoryLoop(GameDataBus& dataBus) {
 			while (Settings::running.load()) {
@@ -38,7 +40,7 @@ namespace ProcessDebugger {
 
 			snapshot.lockedTargetIndex = lockedTargetIdx;
 
-			HANDLE hProcess = handler.GetHandle();
+			HANDLE hProcess = handler->GetHandle();
 
 			uintptr_t myPosAddr = Offsets::hwBase + Offsets::positionPlayers - 0x1E0 + 0x70;
 			ReadProcessMemory(hProcess, (LPCVOID)myPosAddr, &snapshot.myPosition, sizeof(snapshot.myPosition), nullptr);

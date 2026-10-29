@@ -1,5 +1,4 @@
 ﻿#include "GameDataBus.h"
-#include "GameStructures.h"
 
 #include <mutex>
 

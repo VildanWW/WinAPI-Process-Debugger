@@ -15,9 +15,8 @@ int main() {
     if (!processHandler.Initializiting()) {
         return -1;
     }
+    EntityManager entityManager(&processHandler);
     FeatureManager featureManager(&processHandler);
-
-    EntityManager entityManager(processHandler);
 
     std::thread featuresThread(&FeatureManager::UpdateLoop, &featureManager);
     while (running.load()) {

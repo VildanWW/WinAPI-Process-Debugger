@@ -1,8 +1,11 @@
 ﻿#pragma once
 #include <atomic>
 
-#include "ProcessHandler.h"
-
+namespace ProcessDebugger {
+	namespace Core {
+		class ProcessHandler;
+	}
+}
 namespace ProcessDebugger {
 	namespace Features {
 		class IBaseFeature {

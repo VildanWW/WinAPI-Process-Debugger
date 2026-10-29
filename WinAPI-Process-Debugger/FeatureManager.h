@@ -1,9 +1,17 @@
 ﻿#pragma once
 #include <vector>
 #include <memory>
+#include <condition_variable>
+#include <mutex>
 
-#include "IBaseFeature.h"
-#include "ProcessHandler.h"
+namespace ProcessDebugger {
+	namespace Features {
+		class IBaseFeature;
+	}
+	namespace Core {
+		class ProcessHandler;
+	}
+}
 
 namespace ProcessDebugger {
 	namespace Features {
@@ -11,10 +19,14 @@ namespace ProcessDebugger {
 		private:
 			std::vector<std::unique_ptr<IBaseFeature>> features;
 
+			std::condition_variable cvCycleRun;
+			std::mutex mtxCycleRun;
+
 			Core::ProcessHandler* processHandler;
 		public:
 			FeatureManager(Core::ProcessHandler* processHandler);
 			void UpdateLoop();
+			~FeatureManager();
 		};
 	}
 }
