@@ -1,13 +1,16 @@
 ﻿#include <memory>
 #include <thread>
 
-#include "FeatureManager.h"
 #include "InputAutomation.h"
 #include "VectorController.h"
 #include "StabilizationSystem.h"
+#include "EntityVisualizer.h"
+
+#include "FeatureManager.h"
 #include "ProcessHandler.h"
 #include "GameDataBus.h"
 #include "Settings.h"
+#include "IBaseFeature.h"
 
 namespace ProcessDebugger {
 	namespace Features {
@@ -15,10 +18,16 @@ namespace ProcessDebugger {
 			features.push_back(std::make_unique<InputAutomation>());
 			features.push_back(std::make_unique<VectorController>());
 			features.push_back(std::make_unique<StabilizationSystem>());
+			features.push_back(std::make_unique<EntityVisualizer>());
 
 			for (int i = 0; i < features.size(); i++) {
 				features[i]->SetProcessHandler(processHandler);
 				features[i]->SetGameDataBus(gameDataBus);
+
+				if (features[i]->GetFeatureId() == FeatureID::Visualizer) {
+					auto featureWh = static_cast<EntityVisualizer*>(features[i].get());
+					featureWh->Initialization();
+				}
 			}
 		}
 

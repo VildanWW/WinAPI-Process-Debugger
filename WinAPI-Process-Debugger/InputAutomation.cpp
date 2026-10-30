@@ -6,7 +6,7 @@
 
 namespace ProcessDebugger {
 	namespace Features {
-		InputAutomation::InputAutomation() : IBaseFeature(true, true), jump(0), air(0) {}
+		InputAutomation::InputAutomation() : IBaseFeature(true, true, FeatureID::BunnyHop), jump(0), air(0) {}
 
 		void InputAutomation::UpDate() {
 			if (GetAsyncKeyState(Settings::bhop)) {

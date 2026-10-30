@@ -5,7 +5,7 @@
 
 namespace ProcessDebugger {
 	namespace Features {
-		StabilizationSystem::StabilizationSystem() : IBaseFeature(true, true) {}
+		StabilizationSystem::StabilizationSystem() : IBaseFeature(true, true, FeatureID::NoRecoil) {}
 
 		void StabilizationSystem::UpDate() {
 			if (GetAsyncKeyState(Settings::clickAim) & 0x8000) {

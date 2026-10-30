@@ -10,7 +10,7 @@
 
 namespace ProcessDebugger {
 	namespace Features {
-		VectorController::VectorController() : IBaseFeature(true, false) {}
+		VectorController::VectorController() : IBaseFeature(true, false, FeatureID::VectorController) {}
 
 		void VectorController::UpDate() {
 			if (GetAsyncKeyState(Settings::clickAim) & 0x8000) {

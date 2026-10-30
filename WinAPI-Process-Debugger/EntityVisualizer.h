@@ -1,10 +1,8 @@
 ﻿#pragma once
 #include "IBaseFeature.h"
-#include "Memory.h"
-#include <d3d9.h>
+#include <d3d11.h>
 
-#pragma comment(lib, "d3d9.lib")
-#define M_PI 3.14159265358979323846f
+#pragma comment(lib, "d3d11.lib")
 
 namespace ProcessDebugger {
 	namespace Features {
@@ -12,20 +10,21 @@ namespace ProcessDebugger {
 		private:
 			RECT gRect;
 			HWND ovl;
-			D3DPRESENT_PARAMETERS d3dpp;
-			IDirect3D9* d3d;
-			IDirect3DDevice9* d3dDevice;
-			struct D3DVertex { float x, y, z, rhw; DWORD color; };
+
+			IDXGISwapChain* swapChain = nullptr;
+			ID3D11Device* d3dDevice = nullptr;
+			ID3D11DeviceContext* d3dDeviceContext = nullptr;
+			ID3D11RenderTargetView* mainRenderTargetView = nullptr;
+
 			int sW;
 			int sH;
 		public:
 			EntityVisualizer();
 
+			void Initialization();
+
 			void UpDate() override;
 			void MenuRender() override;
-
-			void DrawLine(float x1, float y1, float x2, float y2, DWORD color);
-			void DrawEspBox(int x, int y, int w, int h, DWORD color);
 
 			~EntityVisualizer();
 		};

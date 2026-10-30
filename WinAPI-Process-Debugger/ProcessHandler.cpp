@@ -79,9 +79,6 @@ namespace ProcessDebugger {
 			hProcess = nullptr;
 			procId = 0;
 			hwnd = nullptr;
-
-			Offsets::clientBase = 0;
-			Offsets::hwBase = 0;
 		}
 	}
 }

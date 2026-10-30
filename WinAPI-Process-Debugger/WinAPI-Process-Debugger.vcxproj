@@ -78,6 +78,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -93,6 +94,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -129,6 +131,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="EntityManager.cpp" />
+    <ClCompile Include="EntityVisualizer.cpp" />
     <ClCompile Include="FeatureManager.cpp" />
     <ClCompile Include="GameDataBus.cpp" />
     <ClCompile Include="ImGui\imgui.cpp" />
@@ -147,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EntityManager.h" />
+    <ClInclude Include="EntityVisualizer.h" />
     <ClInclude Include="FeatureManager.h" />
     <ClInclude Include="GameDataBus.h" />
     <ClInclude Include="GameStructures.h" />

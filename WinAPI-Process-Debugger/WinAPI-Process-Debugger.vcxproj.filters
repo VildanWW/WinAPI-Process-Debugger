@@ -31,6 +31,7 @@
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="GameDataBus.cpp" />
     <ClCompile Include="FeatureManager.cpp" />
+    <ClCompile Include="EntityVisualizer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="VectorController.h" />
@@ -69,6 +70,7 @@
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="GameDataBus.h" />
     <ClInclude Include="FeatureManager.h" />
+    <ClInclude Include="EntityVisualizer.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ImGui">

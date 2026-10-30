@@ -9,24 +9,34 @@ namespace ProcessDebugger {
 }
 namespace ProcessDebugger {
 	namespace Features {
+		enum class FeatureID {
+			Unknown,
+			BunnyHop,
+			VectorController,
+			Visualizer,
+			NoRecoil
+		};
+
 		class IBaseFeature {
 		protected: 			
 			std::atomic<bool> enabled{ false };
 			std::atomic<bool> background{ false }; // I don't know, this variable will it be used in several threads, but i set it atomic
 			Core::ProcessHandler* handler = nullptr;
 			Core::GameDataBus* gameDataBus = nullptr;
+			FeatureID featureId = FeatureID::Unknown;
 		public:
 			virtual void UpDate() = 0;
 			virtual void MenuRender() = 0;
 
 			bool GetEnabled() const { return enabled; }
 			bool GetBackGround() const { return background; }
-			
+			FeatureID GetFeatureId() const { return featureId; }
+
 			void SetEnabled(bool enabledButton) { enabled = enabledButton; }
 			void SetProcessHandler(Core::ProcessHandler* processHandler) { handler = processHandler; }
 			void SetGameDataBus(Core::GameDataBus* DataBus) { gameDataBus = DataBus; }
 
-			IBaseFeature(bool isEnabled = false, bool isBackGround = false) {
+			IBaseFeature(bool isEnabled = false, bool isBackGround = false, FeatureID featureId = FeatureID::Unknown) : featureId(featureId) {
 				enabled.store(isEnabled);
 				background.store(isBackGround);
 			};
