@@ -4,6 +4,7 @@
 #include "FeatureManager.h"
 #include "InputAutomation.h"
 #include "VectorController.h"
+#include "StabilizationSystem.h"
 #include "ProcessHandler.h"
 #include "GameDataBus.h"
 #include "Settings.h"
@@ -13,6 +14,7 @@ namespace ProcessDebugger {
 		FeatureManager::FeatureManager(Core::ProcessHandler* processHandler, Core::GameDataBus* gameDataBus) : processHandler(processHandler), gameDataBus(gameDataBus) {
 			features.push_back(std::make_unique<InputAutomation>());
 			features.push_back(std::make_unique<VectorController>());
+			features.push_back(std::make_unique<StabilizationSystem>());
 
 			for (int i = 0; i < features.size(); i++) {
 				features[i]->SetProcessHandler(processHandler);

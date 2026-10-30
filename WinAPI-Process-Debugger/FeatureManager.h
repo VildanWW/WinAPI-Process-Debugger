@@ -25,7 +25,6 @@ namespace ProcessDebugger {
 
 			std::condition_variable cvCycleRun;
 			std::mutex mtxCycleRun;
-
 		public:
 			FeatureManager(Core::ProcessHandler* processHandler, Core::GameDataBus* gameDataBus);
 			void UpdateLoop();
