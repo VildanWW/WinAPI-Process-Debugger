@@ -12,85 +12,106 @@ namespace ProcessDebugger {
 	namespace Features {
 		VectorController::VectorController() : IBaseFeature(true, false, FeatureID::VectorController) {}
 
-		void VectorController::UpDate() {
-			if (GetAsyncKeyState(Settings::clickAim) & 0x8000) {
-				
-				Data::GameShapshot gameSnapshot;;
-				gameDataBus->FetchLatestSnapshot(gameSnapshot);
-				
-				bool found = false;
-				float targetAng[2] = { 0,0 };
+        void VectorController::UpDate() {
+            if (!(GetAsyncKeyState(Settings::clickAim) & 0x8000)) {
+                gameDataBus->SetLockedTargetIndex(-1);
+                return;
+            }
 
-				float currentViewAngles[2];
-				ReadProcessMemory(handler->GetHandle(), (LPCVOID)(Offsets::hwBase + Offsets::viewAngles), &currentViewAngles, sizeof(targetAng), NULL);
+            Data::GameShapshot gameSnapshot;
+            gameDataBus->FetchLatestSnapshot(gameSnapshot);
 
-				if (gameSnapshot.lockedTargetIndex == -1 && !gameSnapshot.players.empty()) {
-					float bestFov = Settings::aimFov;
-					for (const auto& p : gameSnapshot.players) {
-						float rad = (p.yaw + 1.0f) * (ProjectMath::PI / 180.0f);
-						float dX = (p.pos.x + cosf(rad)) - gameSnapshot.myPosition.x;
-						float dY = (p.pos.y + sinf(rad)) - gameSnapshot.myPosition.y;
+            if (gameSnapshot.players.empty()) {
+                gameDataBus->SetLockedTargetIndex(-1);
+                return;
+            }
 
-						float dZ = (p.pos.z + 20.5f) - (gameSnapshot.myPosition.z + 18.0f);
+            float currentViewAngles[2];
+            ReadProcessMemory(handler->GetHandle(), (LPCVOID)(Offsets::hwBase + Offsets::viewAngles), currentViewAngles, sizeof(currentViewAngles), NULL);
 
-						float fDist2D = sqrtf(dX * dX + dY * dY);
+            if (gameSnapshot.lockedTargetIndex == -1) {
+                float bestFov = Settings::aimFov;
 
-						float ang[2];
-						ang[0] = -atan2f(dZ, fDist2D) * (180.0f / ProjectMath::PI);
-						ang[1] = atan2f(dY, dX) * (180.0f / ProjectMath::PI);
+                for (const auto& p : gameSnapshot.players) {
+                    float rad = (p.yaw + 1.0f) * (ProjectMath::PI / 180.0f);
+                    float dX = (p.pos.x + cosf(rad)) - gameSnapshot.myPosition.x;
+                    float dY = (p.pos.y + sinf(rad)) - gameSnapshot.myPosition.y;
+                    float dZ = (p.pos.z + 20.5f) - (gameSnapshot.myPosition.z + 18.0f);
+                    float fDist2D = sqrtf(dX * dX + dY * dY);
 
-						float fovY = abs(ang[1] - currentViewAngles[1]);
-						if (fovY > 180) fovY = 360 - fovY;
-						float fov = sqrtf(powf(ang[0] - currentViewAngles[0], 2) + powf(fovY, 2));
+                    float ang[2];
+                    ang[0] = -atan2f(dZ, fDist2D) * (180.0f / ProjectMath::PI);
+                    ang[1] = atan2f(dY, dX) * (180.0f / ProjectMath::PI);
 
-						if (fov < bestFov) {
-							bestFov = fov;
-							gameDataBus->SetLockedTargetIndex(p.index);
-						}
-					}
-				}
+                    float fovY = abs(ang[1] - currentViewAngles[1]);
+                    if (fovY > 180) fovY = 360 - fovY;
+                    float fov = sqrtf(powf(ang[0] - currentViewAngles[0], 2) + powf(fovY, 2));
 
-				if (gameSnapshot.lockedTargetIndex != -1) {
-					found = false;
-					for (const auto& p : gameSnapshot.players) {
-						if (p.index == gameSnapshot.lockedTargetIndex) {
-							float rad = (p.yaw + 1.0f) * (ProjectMath::PI / 180.0f);
-							float dX = (p.pos.x + cosf(rad)) - gameSnapshot.myPosition.x;
-							float dY = (p.pos.y + sinf(rad)) - gameSnapshot.myPosition.y;
+                    if (fov < bestFov) {
+                        bestFov = fov;
+                        gameDataBus->SetLockedTargetIndex(p.index);
+                    }
+                }
+            }
 
-							float dZ = (p.pos.z + 20.5f) - (gameSnapshot.myPosition.z + 18.0f);
-							float fDist2D = sqrtf(dX * dX + dY * dY);
+            if (gameSnapshot.lockedTargetIndex == -1) {
+                return;
+            }
 
-							targetAng[0] = -atan2f(dZ, fDist2D) * (180.0f / ProjectMath::PI);
-							targetAng[1] = atan2f(dY, dX) * (180.0f / ProjectMath::PI);
+            float targetAng[2] = { 0, 0 };
+            bool found = false;
 
-							float diffY = abs(targetAng[1] - currentViewAngles[1]);
-							if (diffY > 180) diffY = 360 - diffY;
-							float currentFov = sqrtf(powf(targetAng[0] - currentViewAngles[0], 2) + powf(diffY, 2));
+            for (const auto& p : gameSnapshot.players) {
+                if (p.index != gameSnapshot.lockedTargetIndex) continue;
 
-							if (currentFov > 12.0f) {
-								gameDataBus->SetLockedTargetIndex(-1);
-								break;
-							}
+                float rad = (p.yaw + 1.0f) * (ProjectMath::PI / 180.0f);
+                float dX = (p.pos.x + cosf(rad)) - gameSnapshot.myPosition.x;
+                float dY = (p.pos.y + sinf(rad)) - gameSnapshot.myPosition.y;
+                float dZ = (p.pos.z + 20.5f) - (gameSnapshot.myPosition.z + 18.0f);
+                float fDist2D = sqrtf(dX * dX + dY * dY);
 
-							found = true;
-							break;
-						}
-					}
+                targetAng[0] = -atan2f(dZ, fDist2D) * (180.0f / ProjectMath::PI);
+                targetAng[1] = atan2f(dY, dX) * (180.0f / ProjectMath::PI);
 
-					if (found) {
-						WriteProcessMemory(handler->GetHandle(), (LPVOID)(Offsets::hwBase + Offsets::viewAngles), &targetAng[0], sizeof(targetAng), NULL);
-					}
+                float diffY = abs(targetAng[1] - currentViewAngles[1]);
+                if (diffY > 180) diffY = 360 - diffY;
+                float currentFov = sqrtf(powf(targetAng[0] - currentViewAngles[0], 2) + powf(diffY, 2));
 
-					else {
-						gameDataBus->SetLockedTargetIndex(-1);
-					}
-				}
-			}
-			else {
-				gameDataBus->SetLockedTargetIndex(-1);
-			}
-		}
+                if (currentFov > 12.0f) {
+                    gameDataBus->SetLockedTargetIndex(-1);
+                    return;
+                }
+
+                found = true;
+                break;
+            }
+
+            if (!found) {
+                gameDataBus->SetLockedTargetIndex(-1);
+                return;
+            }
+
+            float punch[3] = { 0.0f, 0.0f, 0.0f };
+            ReadProcessMemory(handler->GetHandle(), (LPCVOID)(Offsets::hwBase + Offsets::punch), &punch, sizeof(punch), NULL);
+
+            float finalTargetAng[2];
+
+            if (abs(punch[0]) < 0.05f && abs(punch[1]) < 0.05f) {
+                finalTargetAng[0] = targetAng[0];
+                finalTargetAng[1] = targetAng[1];
+            }
+            else {
+                finalTargetAng[0] = targetAng[0] - (punch[0] * 2.0f);
+                finalTargetAng[1] = targetAng[1] - (punch[1] * 2.0f);
+            }
+
+            if (finalTargetAng[0] > 89.0f) finalTargetAng[0] = 89.0f;
+            if (finalTargetAng[0] < -89.0f) finalTargetAng[0] = -89.0f;
+            while (finalTargetAng[1] > 180.0f) finalTargetAng[1] -= 360.0f;
+            while (finalTargetAng[1] < -180.0f) finalTargetAng[1] += 360.0f;
+
+            WriteProcessMemory(handler->GetHandle(), (LPVOID)(Offsets::hwBase + Offsets::viewAngles), finalTargetAng, sizeof(finalTargetAng), NULL);
+        }
 
 		void VectorController::MenuRender() {}
 	}

@@ -16,5 +16,6 @@ namespace ProcessDebugger {
 		// Aim
 		inline int clickAim = VK_LBUTTON;
 		inline float aimFov = 10.0f;
+		inline float aimSmooth = 15.0f;
 	}
 }
